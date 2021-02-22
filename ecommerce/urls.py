@@ -1,22 +1,19 @@
-"""ecommerce URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from apps.core import views as coreviews
+from apps.store import views as storeviews
+from apps.cart.views import cart
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('apps.core.urls')),
+    
+    path('', coreviews.frontend, name='frontpage'),
+    path('contact/', coreviews.contact, name='contact'),
+    path('about/', coreviews.about, name='about'),
+    
+    path('<slug:category_slug>/<slug:slug>/', storeviews.product_details, name='product_detail'),
+    path('<slug:slug>/', storeviews.category_detail, name='category_detail'),
+    
+    path('cart/', cart, name='cart'),
 ]

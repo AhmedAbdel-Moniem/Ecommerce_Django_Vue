@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 {% block title %}
-  front end
+  {{category.title}}
 {% endblock title %}
+
+
+
 
 {% block content %}
   <h1>Products</h1>
   {% for product in products %}
   <div class="card text-center" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title">{{ product.title }}</h5>
+      <h5 href="{% url 'product_detail' product.category.slug product.slug %}" class="card-title">{{ product.title }}</h5>
       <p class="card-text">{{ product.description }}</p>
       <footer title="Source Title">${{ product.price }}
         <a href="{% url 'product_detail' product.category.slug product.slug %}" class="btn btn-primary">view</a>
