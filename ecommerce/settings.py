@@ -122,3 +122,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Cart
+SESSION_COOKE_AGE = '86400'
+CART_SESSION_ID = 'cart'
