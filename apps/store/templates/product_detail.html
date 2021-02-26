@@ -7,8 +7,9 @@
 	{% if product.description %}
 	<p>{{ product.description }}</p>
 	{% endif %}
-	<button @click="addToCart({{ product.id }})">Add to cart</button>
+	<button @click="addToCart({{ product.id }})" class="btn btn-success">Add to cart</button>
 </div>
+{% endblock content %}
 {% block scripts %}
 <script>
 	var productapp = new Vue({
@@ -18,17 +19,21 @@
 			return {}
 		},
 		mounted() {
-			console.log('Mounted');
-		},
+					},
 		methods: {
-			addToCart (product_id) {
+			addToCart(product_id) {
 				console.log('product_id ', product_id);
+				var data = {
+					'product_id': product_id,
+					'update': false,
+					'quantity': 1
+				};
 
-				fetch('/api/add_to_cart', {
+				fetch('/api/add_to_cart/', {
 					method: 'POST',
 					'header': {
 						'Content_type': 'application/json',
-						'x_CSRFToken': '{{ csrf_token }}'
+						'x_CSRFToken': '{{ csrf_token }}',
 					},
 					credentials: 'same-origin',
 					body: JSON.stringify(data)
@@ -42,16 +47,16 @@
 				})
 				.then((result) => {
 					if (result) {
-						console.log('Added to cart')
+						console.log('Added to cart');
 					}
 				})
 				.catch(function (error) {
-					console.log('Error 2');
+					console.log('Error is: ', error);
 				})
 			}
 		}
 
-	})
+	});
+	
 </script>
 {% endblock scripts %}
-{% endblock content %}

@@ -5,13 +5,12 @@ from apps.cart.cart import Cart
 from django.shortcuts import get_object_or_404
 
 def api_add_to_cart(request):
+    data = json.loads(request.body)
     jsonresponse = {'success': True}
     product_id   = request.POST.get('product_id')
     update       = request.POST.get('update')
-    quantity     = request.POST.get('quantity', 1)
-    data = json.loads(request.body)
-    print(data)
-    print(data['product.id'])
+    quantity     = request.POST.get('quantity')
+ 
     
     cart         = Cart(request)
     
